@@ -1,4 +1,8 @@
 /samples/
+.wix/
+*.msi
+*.wixpdb
+*.zip
 
 # Created by https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode,intellij+all,rider,csharp
 # Edit at https://www.toptal.com/developers/gitignore?templates=visualstudio,visualstudiocode,intellij+all,rider,csharp

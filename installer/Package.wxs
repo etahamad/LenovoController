@@ -1,0 +1,67 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+  <Package Name="Lenovo Controller"
+           Manufacturer="ViRb3 &amp; Omar"
+           Version="1.1.0"
+           UpgradeCode="C4F1B015-36FE-44FA-BCD8-52253A4D6C20"
+           Scope="perMachine">
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Icon Id="AppIcon" SourceFile="..\source\bin\Release\icon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="AppIcon" />
+    <Property Id="ARPHELPLINK" Value="https://github.com/ViRb3/LenovoController" />
+
+    <StandardDirectory Id="ProgramFiles6432Folder">
+      <Directory Id="INSTALLFOLDER" Name="LenovoController" />
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder" />
+    <StandardDirectory Id="DesktopFolder" />
+
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="MainExecutable" Guid="3E4F67B9-8F24-4B21-9952-6C8E75C41A12">
+        <File Id="LenovoControllerExe"
+              Source="..\source\bin\Release\LenovoController.exe"
+              KeyPath="yes">
+          <Shortcut Id="StartMenuShortcut"
+                    Directory="ProgramMenuFolder"
+                    Name="Lenovo Controller"
+                    Description="Lightweight Lenovo Vantage alternative"
+                    WorkingDirectory="INSTALLFOLDER"
+                    Icon="AppIcon"
+                    Advertise="yes" />
+          <Shortcut Id="DesktopShortcut"
+                    Directory="DesktopFolder"
+                    Name="Lenovo Controller"
+                    Description="Lightweight Lenovo Vantage alternative"
+                    WorkingDirectory="INSTALLFOLDER"
+                    Icon="AppIcon"
+                    Advertise="yes" />
+        </File>
+        <File Id="LenovoControllerConfig" Source="..\source\bin\Release\LenovoController.exe.config" />
+        <File Id="AppIconFile" Source="..\source\bin\Release\icon.ico" />
+      </Component>
+    </ComponentGroup>
+
+    <!-- Clean up Scheduled Task upon uninstall -->
+    <CustomAction Id="DeleteScheduledTask"
+                  Directory="INSTALLFOLDER"
+                  ExeCommand='schtasks.exe /delete /tn "LenovoController" /f'
+                  Execute="deferred"
+                  Impersonate="no"
+                  Return="ignore" />
+
+    <InstallExecuteSequence>
+      <Custom Action="DeleteScheduledTask" Before="RemoveFiles" Condition="REMOVE=&quot;ALL&quot;" />
+    </InstallExecuteSequence>
+
+    <ui:WixUI Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER" />
+    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+
+    <Feature Id="MainFeature" Title="Lenovo Controller" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+  </Package>
+</Wix>

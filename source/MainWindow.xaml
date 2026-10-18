@@ -1,4 +1,4 @@
-﻿<Window x:Class="LenovoController.MainWindow"
+<Window x:Class="LenovoController.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,9 +10,9 @@
     <StackPanel Margin="15">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -20,7 +20,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <GroupBox Grid.Row="0" Grid.Column="0" Header="Battery mode" Margin="0,0,5,0">
+            <GroupBox Grid.Row="0" Grid.Column="0" Header="Battery mode" Margin="0,0,5,5">
                 <StackPanel Margin="5,5,20,5" Orientation="Vertical">
                     <RadioButton Margin="0,0,0,5" x:Name="radioConservation" Content="Conservation"
                                  HorizontalAlignment="Left" VerticalAlignment="Top" Checked="radioBattery_Checked"
@@ -34,7 +34,7 @@
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Grid.Row="0" Grid.Column="1" Header="Always on USB" Margin="0">
+            <GroupBox Grid.Row="0" Grid.Column="1" Header="Always on USB" Margin="0,0,0,5">
                 <StackPanel Margin="5,5,20,5" Orientation="Vertical">
                     <RadioButton Margin="0,0,0,5" x:Name="radioAlwaysOnUsbOff" Content="Off" HorizontalAlignment="Left"
                                  VerticalAlignment="Top" Checked="radioAlwaysOnUsb_Checked"
@@ -48,7 +48,7 @@
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Grid.Row="1" Grid.Column="0" Header="Power mode" Margin="0,0,5,0">
+            <GroupBox Grid.Row="1" Grid.Column="0" Header="Power mode" Margin="0,0,5,5">
                 <StackPanel Margin="5,5,20,5" Orientation="Vertical">
                     <RadioButton Margin="0,0,0,5" x:Name="radioQuiet" Content="Quiet" HorizontalAlignment="Left"
                                  VerticalAlignment="Top" Checked="radioPowerMode_Checked"
@@ -62,7 +62,7 @@
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox Grid.Row="1" Grid.Column="1" Margin="0" Header="Misc">
+            <GroupBox Grid.Row="1" Grid.Column="1" Margin="0,0,0,5" Header="Misc">
                 <StackPanel Margin="5,5,20,5" Orientation="Vertical">
                     <CheckBox Margin="0,0,0,5" x:Name="chkOverDrive" Content="Over Drive" HorizontalAlignment="Left"
                               VerticalAlignment="Top" Checked="chkOverDrive_Checked" Unchecked="chkOverDrive_Checked"
@@ -75,8 +75,32 @@
                               Unchecked="chkTouchpadLock_Checked" VerticalContentAlignment="Center" />
                 </StackPanel>
             </GroupBox>
+
+            <GroupBox Grid.Row="2" Grid.Column="0" Header="Battery info" Margin="0,0,5,0">
+                <StackPanel Margin="5,5,10,5" Orientation="Vertical">
+                    <TextBlock x:Name="lblBatteryLevel" Text="Level: --%" FontWeight="SemiBold" Margin="0,0,0,4" />
+                    <TextBlock x:Name="lblBatteryStatus" Text="Status: --" Margin="0" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox Grid.Row="2" Grid.Column="1" Header="Startup &amp; Tray" Margin="0">
+                <StackPanel Margin="5,5,10,5" Orientation="Vertical">
+                    <CheckBox Margin="0,0,0,5" x:Name="chkStartWithWindows" Content="Start with Windows"
+                              HorizontalAlignment="Left" VerticalAlignment="Top"
+                              Checked="chkStartWithWindows_Checked" Unchecked="chkStartWithWindows_Checked"
+                              VerticalContentAlignment="Center" />
+                    <CheckBox Margin="0,0,0,5" x:Name="chkStartMinimized" Content="Start Minimized"
+                              HorizontalAlignment="Left" VerticalAlignment="Top"
+                              Checked="chkStartMinimized_Checked" Unchecked="chkStartMinimized_Checked"
+                              VerticalContentAlignment="Center" />
+                    <CheckBox Margin="0" x:Name="chkMinimizeOnClose" Content="Minimize on Close"
+                              HorizontalAlignment="Left" VerticalAlignment="Top"
+                              Checked="chkMinimizeOnClose_Checked" Unchecked="chkMinimizeOnClose_Checked"
+                              VerticalContentAlignment="Center" />
+                </StackPanel>
+            </GroupBox>
         </Grid>
-        <Button Margin="0,10,0,0" Padding="30,5,30,5" Content="Refresh" VerticalAlignment="Top"
+        <Button Margin="0,12,0,0" Padding="30,5,30,5" Content="Refresh" VerticalAlignment="Top"
                 HorizontalAlignment="Center" Click="btnRefresh_Click" />
     </StackPanel>
 </Window>

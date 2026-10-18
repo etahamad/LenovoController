@@ -8,25 +8,33 @@ on:
 
 jobs:
   build:
-    runs-on: [windows-2019]
+    runs-on: windows-latest
+
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
 
     steps:
       - name: Add msbuild to PATH
-        uses: microsoft/setup-msbuild@v1.0.2
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Setup WiX Toolset
+        run: |
+          dotnet tool install --global wix --version 5.0.2
+          wix extension add -g WixToolset.UI.wixext/5.0.2
 
       - name: Checkout
-        if: success()
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
-          token: ${{ secrets.API_GITHUB_TOKEN }}
+          token: ${{ secrets.API_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Release
-        if: success()
-        uses: cycjimmy/semantic-release-action@v2.3.0
+        uses: cycjimmy/semantic-release-action@v4
         with:
           extra_plugins: |
-            @semantic-release/exec@5.0.0
-            @semantic-release/git@9.0.0
-            @google/semantic-release-replace-plugin@1.0.0
+            @semantic-release/exec
+            @semantic-release/git
+            @google/semantic-release-replace-plugin
         env:
-          GITHUB_TOKEN: ${{ secrets.API_GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.API_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}

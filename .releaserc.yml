@@ -36,3 +36,4 @@ plugins:
       failComment: false
       assets:
         - path: LenovoController.zip
+        - path: LenovoController-*.msi
